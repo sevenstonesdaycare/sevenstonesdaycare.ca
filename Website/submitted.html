@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Registration Received | Seven Stones Daycare & OSC</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="form.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="nav-container">
+
+            <a href="index.html#home" class="logo">
+                <span>Seven Stones</span>
+                <small>DAYCARE & OSC</small>
+            </a>
+
+            <button class="menu-button" id="menuButton">☰</button>
+
+            <nav class="navigation" id="navigation">
+                <a href="index.html#home">Home</a>
+                <a href="index.html#about">About</a>
+                <a href="index.html#programs">Programs</a>
+                <a href="index.html#offers">What We Offer</a>
+                <a href="index.html#contact">Contact</a>
+                <a href="register.html" class="nav-register">Register</a>
+            </nav>
+
+        </div>
+    </header>
+
+
+    <main class="form-page">
+
+        <div class="form-intro">
+            <p class="small-heading">REGISTRATION</p>
+            <h1 id="title">Registration <span>received.</span></h1>
+        </div>
+
+        <div id="status"></div>
+
+        <div class="preview-wrap" id="summary"></div>
+
+        <div class="preview-actions">
+            <a href="index.html" class="primary-button">Back to Home</a>
+            <a href="register.html" class="secondary-button">Register Another Child</a>
+        </div>
+
+    </main>
+
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <strong>Seven Stones</strong>
+                <span>DAYCARE & OSC</span>
+            </div>
+            <div class="footer-links">
+                <a href="index.html#home">Home</a>
+                <a href="index.html#about">About</a>
+                <a href="index.html#programs">Programs</a>
+                <a href="index.html#offers">What We Offer</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2026 Seven Stones Daycare & OSC. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="registration-template.js"></script>
+    <script src="script.js"></script>
+    <script>
+        const saved = sessionStorage.getItem("sevenStonesRegistration");
+        const status = document.getElementById("status");
+        const summary = document.getElementById("summary");
+
+        if (!saved) {
+            document.getElementById("title").innerHTML = "Nothing to <span>show yet.</span>";
+            summary.remove();
+            status.innerHTML =
+                '<div class="status-box test">No registration found. ' +
+                '<a href="register.html"><b>Go to the registration form</b></a>.</div>';
+        } else {
+            const result = JSON.parse(saved);
+
+            summary.innerHTML = buildRegistrationHtml(result.data);
+
+            status.innerHTML = result.emailSent
+                ? '<div class="status-box sent">Thank you! Your registration was sent to Seven Stones Daycare &amp; OSC. ' +
+                  'Our team will contact you soon. This is a copy of what we received.</div>'
+                : '<div class="status-box test"><b>Test mode:</b> no email was sent. ' +
+                  'This is exactly what the daycare will receive once emailing is switched on.</div>';
+        }
+    </script>
+
+</body>
+</html>
